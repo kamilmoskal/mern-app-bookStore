@@ -90,6 +90,22 @@ const Mutation = new GraphQLObjectType({
         // .then(author => res.json({ msg: "Author added successful!" }, author))
         // .catch(() => res.status(500).json({ msg: "Server error" }));
       }
+    },
+    addBook: {
+      type: BookType,
+      args: {
+        name: { type: GraphQLString },
+        genre: { type: GraphQLString },
+        authorId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        const book = new Book({
+          name: args.name,
+          genre: args.genre,
+          authorId: args.authorId
+        });
+        return book.save();
+      }
     }
   }
 });
