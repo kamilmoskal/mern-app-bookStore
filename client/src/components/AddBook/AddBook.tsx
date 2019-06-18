@@ -3,6 +3,7 @@ import { Author } from "../../graphQL/types";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useQuery } from "react-apollo-hooks";
+import { useMutation } from "react-apollo-hooks";
 import { getAuthorsQuery, addBookMutation } from "../../graphQL/queries";
 import Button from "@material-ui/core/Button";
 
@@ -17,6 +18,7 @@ const AddBook = () => {
     authorId: ""
   });
   const { data, error, loading } = useQuery<Data>(getAuthorsQuery);
+  const addBook = useMutation(addBookMutation);
   const handleChange = (e: React.FormEvent<EventTarget>): void => {
     const target = e.target as HTMLInputElement;
     setValues({ ...values, [target.name]: target.value });
@@ -24,6 +26,12 @@ const AddBook = () => {
   const submitForm = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
     console.log(values);
+    addBook({
+      update: (proxy, mutationResult) => {
+        console.log(mutationResult);
+      },
+      variables: values
+    });
   };
 
   let displayAuthors = null;
