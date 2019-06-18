@@ -4,7 +4,11 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useQuery } from "react-apollo-hooks";
 import { useMutation } from "react-apollo-hooks";
-import { getAuthorsQuery, addBookMutation } from "../../graphQL/queries";
+import {
+  getAuthorsQuery,
+  addBookMutation,
+  getBooksQuery
+} from "../../graphQL/queries";
 import Button from "@material-ui/core/Button";
 
 type Data = {
@@ -30,7 +34,8 @@ const AddBook = () => {
       update: (proxy, mutationResult) => {
         console.log(mutationResult);
       },
-      variables: values
+      variables: values,
+      refetchQueries: [{ query: getBooksQuery }]
     });
   };
 
