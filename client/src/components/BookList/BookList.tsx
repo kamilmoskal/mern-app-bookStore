@@ -1,35 +1,28 @@
 import React from "react";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
-import { Book } from "../../graphQLSchema/types";
-
-const getBooksQuery = gql`
-  {
-    books {
-      name
-      id
-    }
-  }
-`;
+import { useQuery } from "react-apollo-hooks";
+import { Book } from "../../graphQL/types";
+import { getBooksQuery } from "../../graphQL/queries";
 
 type Data = {
   books: Array<Book>;
 };
 
-const BookList = () => (
-  <Query<Data> query={getBooksQuery}>
-    {({ data, loading, error }) => {
-      if (loading) return <h3>Loading...</h3>;
-      if (error) console.log(error);
-      return (
-        <ul>
-          {data &&
-            data.books &&
-            data.books.map((book: Book) => <li key={book.id}>{book.name}</li>)}
-        </ul>
-      );
-    }}
-  </Query>
-);
+const BookList = () => {
+  const { data, error, loading } = useQuery<Data>(getBooksQuery);
+
+  const displayBooks = () => {
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+    if (error) {
+      return <div>Error!</div>;
+    }
+    if (data && data.books) {
+      return data.books.map((book: Book) => <li key={book.id}>{book.name}</li>);
+    }
+  };
+
+  return <ul>{displayBooks()}</ul>;
+};
 
 export default BookList;

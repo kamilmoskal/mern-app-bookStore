@@ -10,7 +10,7 @@ export type Scalars = {
 
 export type Author = {
   __typename?: "Author";
-  id?: Maybe<Scalars["ID"]>;
+  id: Scalars["ID"];
   name?: Maybe<Scalars["String"]>;
   age?: Maybe<Scalars["Int"]>;
   books?: Maybe<Array<Maybe<Book>>>;

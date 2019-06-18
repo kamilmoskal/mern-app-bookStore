@@ -9,6 +9,7 @@ import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
+import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
@@ -22,7 +23,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <ApolloHooksProvider client={client}>
+      <App />
+    </ApolloHooksProvider>
   </ApolloProvider>,
   document.getElementById("root")
 );
