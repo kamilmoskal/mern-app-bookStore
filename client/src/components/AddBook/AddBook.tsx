@@ -3,7 +3,7 @@ import { Author } from "../../graphQL/types";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useQuery } from "react-apollo-hooks";
-import { getAuthorsQuery } from "../../graphQL/queries";
+import { getAuthorsQuery, addBookMutation } from "../../graphQL/queries";
 import Button from "@material-ui/core/Button";
 
 type Data = {
@@ -25,21 +25,21 @@ const AddBook = () => {
     e.preventDefault();
     console.log(values);
   };
-  const displayAuthors = () => {
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-    if (error) {
-      return <div>Error!</div>;
-    }
-    if (data && data.authors) {
-      return data.authors.map((author: Author) => (
-        <MenuItem key={author.id} value={author.id}>
-          {author.name}
-        </MenuItem>
-      ));
-    }
-  };
+
+  let displayAuthors = null;
+  if (loading) {
+    displayAuthors = <div>Loading...</div>;
+  }
+  if (error) {
+    displayAuthors = <div>Error!</div>;
+  }
+  if (data && data.authors) {
+    displayAuthors = data.authors.map((author: Author) => (
+      <MenuItem key={author.id} value={author.id}>
+        {author.name}
+      </MenuItem>
+    ));
+  }
   return (
     <form onSubmit={submitForm}>
       <TextField
@@ -68,7 +68,7 @@ const AddBook = () => {
         margin="normal"
         variant="outlined"
       >
-        {displayAuthors()}
+        {displayAuthors}
       </TextField>
       <Button type="submit" variant="contained" color="primary">
         Add Book
