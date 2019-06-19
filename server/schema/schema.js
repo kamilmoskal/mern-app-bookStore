@@ -88,8 +88,6 @@ const Mutation = new GraphQLObjectType({
           age: args.age
         });
         return author.save();
-        // .then(author => res.json({ msg: "Author added successful!" }, author))
-        // .catch(() => res.status(500).json({ msg: "Server error" }));
       }
     },
     addBook: {

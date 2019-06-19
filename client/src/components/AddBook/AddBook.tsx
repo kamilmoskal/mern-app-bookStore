@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Author } from "../../graphQL/types";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useQuery } from "react-apollo-hooks";
-import { useMutation } from "react-apollo-hooks";
+import { useQuery, useMutation } from "react-apollo-hooks";
 import {
   getAuthorsQuery,
   addBookMutation,
