@@ -14,12 +14,14 @@ type Data = {
   authors: Array<Author>;
 };
 
+const initialState = {
+  name: "",
+  genre: "",
+  authorId: ""
+};
+
 const AddBook = () => {
-  const [values, setValues] = useState({
-    name: "",
-    genre: "",
-    authorId: ""
-  });
+  const [values, setValues] = useState(initialState);
   const { data, error, loading } = useQuery<Data>(getAuthorsQuery);
   const addBook = useMutation(addBookMutation);
   const handleChange = (e: React.FormEvent<EventTarget>): void => {
@@ -36,6 +38,7 @@ const AddBook = () => {
       variables: values,
       refetchQueries: [{ query: getBooksQuery }]
     });
+    setValues({ ...initialState });
   };
 
   let displayAuthors = null;

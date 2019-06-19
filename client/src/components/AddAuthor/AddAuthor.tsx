@@ -4,11 +4,13 @@ import { useMutation } from "react-apollo-hooks";
 import { getAuthorsQuery, addAuthorMutation } from "../../graphQL/queries";
 import Button from "@material-ui/core/Button";
 
+const initialState = {
+  name: "",
+  age: ""
+};
+
 const AddAuthor = () => {
-  const [values, setValues] = useState({
-    name: "",
-    age: ""
-  });
+  const [values, setValues] = useState(initialState);
   const addAuthor = useMutation(addAuthorMutation);
   const handleChange = (e: React.FormEvent<EventTarget>): void => {
     const target = e.target as HTMLInputElement;
@@ -24,6 +26,7 @@ const AddAuthor = () => {
       variables: { name: values.name, age: parseInt(values.age) },
       refetchQueries: [{ query: getAuthorsQuery }]
     });
+    setValues({ ...initialState });
   };
   return (
     <form onSubmit={submitForm}>

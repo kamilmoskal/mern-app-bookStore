@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "react-apollo-hooks";
 import { Book } from "../../graphQL/types";
 import { getBookQuery } from "../../graphQL/queries";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 type Data = {
   book: Book;
@@ -17,7 +18,7 @@ const BookDetails: React.FC<Props> = ({ bookId }) => {
   });
   console.log(data);
   if (loading) {
-    return <div>Loading...</div>;
+    return <CircularProgress />;
   }
   if (data && data.book) {
     return (
