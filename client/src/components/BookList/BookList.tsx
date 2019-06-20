@@ -1,12 +1,16 @@
 import React from "react";
 import { useQuery } from "react-apollo-hooks";
-import { Book } from "../../graphQL/types";
 import { getBooksQuery } from "../../graphQL/queries";
-
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import useStyles from "./styles";
+import { Book } from "../../graphQL/types";
+import useStyles from "../../shared/styles";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+  Divider,
+  CircularProgress
+} from "@material-ui/core";
 
 type Data = {
   books: Array<Book>;
@@ -21,28 +25,44 @@ const BookList: React.FC<Props> = ({ setBook, activeBook }) => {
   const { data, error, loading } = useQuery<Data>(getBooksQuery);
   const classes = useStyles();
 
-  let displayBooks = null;
+  let bookList = null;
   if (loading) {
-    displayBooks = <div>Loading...</div>;
+    bookList = <CircularProgress size={60} />;
   }
   if (error) {
-    displayBooks = <div>Error!</div>;
+    bookList = (
+      <Typography variant="subtitle1" align="center">
+        Can't connect to server
+      </Typography>
+    );
   }
   if (data && data.books) {
-    displayBooks = data.books.map((book: Book) => (
-      <ListItem
-        button
-        key={book.id}
-        onClick={() => setBook(book.id)}
-        selected={book.id === activeBook}
-        component="li"
-      >
-        <ListItemText primary={book.name} />
-      </ListItem>
-    ));
+    bookList = (
+      <List className={classes.overflow}>
+        {data.books.map((book: Book) => (
+          <ListItem
+            button
+            key={book.id}
+            onClick={() => setBook(book.id)}
+            selected={book.id === activeBook}
+            component="li"
+          >
+            <ListItemText primary={book.name} />
+          </ListItem>
+        ))}
+      </List>
+    );
   }
 
-  return <List className={classes.root}>{displayBooks}</List>;
+  return (
+    <>
+      <Typography variant="h6" align="center" color="primary">
+        <strong>Book List</strong>
+      </Typography>
+      <Divider className={classes.divider} />
+      <div className={classes.wrapper}>{bookList}</div>
+    </>
+  );
 };
 
 export default BookList;

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
 import { useMutation } from "react-apollo-hooks";
 import { getAuthorsQuery, addAuthorMutation } from "../../graphQL/queries";
-import Button from "@material-ui/core/Button";
+import useStyles from "../../shared/styles";
+import { TextField, Button, Typography, Divider } from "@material-ui/core";
 
 const initialState = {
   name: "",
@@ -12,13 +12,13 @@ const initialState = {
 const AddAuthor = () => {
   const [values, setValues] = useState(initialState);
   const addAuthor = useMutation(addAuthorMutation);
+
   const handleChange = (e: React.FormEvent<EventTarget>): void => {
     const target = e.target as HTMLInputElement;
     setValues({ ...values, [target.name]: target.value });
   };
   const submitForm = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
-    console.log(values);
     addAuthor({
       update: (proxy, mutationResult) => {
         console.log(mutationResult);
@@ -28,29 +28,47 @@ const AddAuthor = () => {
     });
     setValues({ ...initialState });
   };
+  const classes = useStyles();
   return (
-    <form onSubmit={submitForm}>
-      <TextField
-        label="Name"
-        name="name"
-        value={values.name}
-        onChange={handleChange}
-        margin="normal"
-        variant="outlined"
-      />
-      <TextField
-        label="Age"
-        name="age"
-        value={values.age}
-        onChange={handleChange}
-        margin="normal"
-        variant="outlined"
-        type="number"
-      />
-      <Button type="submit" variant="contained" color="primary">
-        Add Author
-      </Button>
-    </form>
+    <>
+      <Typography variant="h6" align="center" color="primary">
+        <strong>Add Author to Store</strong>
+      </Typography>
+      <Divider className={classes.divider} />
+      <form onSubmit={submitForm}>
+        <TextField
+          fullWidth={true}
+          label="Name"
+          name="name"
+          value={values.name}
+          onChange={handleChange}
+          margin="normal"
+          variant="outlined"
+          required
+        />
+        <TextField
+          fullWidth={true}
+          label="Age"
+          name="age"
+          value={values.age}
+          onChange={handleChange}
+          margin="normal"
+          variant="outlined"
+          type="number"
+          required
+          inputProps={{ min: 1, max: 130 }}
+        />
+        <Button
+          type="submit"
+          fullWidth={true}
+          variant="contained"
+          color="primary"
+          size="large"
+        >
+          Add Author
+        </Button>
+      </form>
+    </>
   );
 };
 

@@ -13,7 +13,7 @@ export type Author = {
   id: Scalars["ID"];
   name?: Maybe<Scalars["String"]>;
   age?: Maybe<Scalars["Int"]>;
-  books?: Maybe<Array<Maybe<Book>>>;
+  books: Array<Book>;
 };
 
 export type Book = {
@@ -21,7 +21,7 @@ export type Book = {
   id: Scalars["ID"];
   name?: Maybe<Scalars["String"]>;
   genre?: Maybe<Scalars["String"]>;
-  author?: Maybe<Author>;
+  author: Author;
 };
 
 export type Mutation = {
