@@ -5,7 +5,6 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import "typeface-roboto";
-import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
@@ -22,11 +21,9 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <ApolloHooksProvider client={client}>
-      <App />
-    </ApolloHooksProvider>
-  </ApolloProvider>,
+  <ApolloHooksProvider client={client}>
+    <App />
+  </ApolloHooksProvider>,
   document.getElementById("root")
 );
 

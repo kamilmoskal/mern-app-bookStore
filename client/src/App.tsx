@@ -1,12 +1,10 @@
 import React, { useState } from "react";
+import useStyles from "./styles";
+import { Container, Grid, Typography } from "@material-ui/core";
 import BookList from "./components/BookList/BookList";
 import AddBook from "./components/AddBook/AddBook";
 import AddAuthor from "./components/AddAuthor/AddAuthor";
 import BookDetails from "./components/BookDetails/BookDetails";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import useStyles from "./styles";
 
 const App: React.FC = () => {
   const [activeBook, setActiveBook] = useState<null | string>(null);
