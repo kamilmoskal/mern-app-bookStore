@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { useMutation } from "react-apollo-hooks";
-import { getAuthorsQuery, addAuthorMutation } from "../../graphQL/queries";
-import useStyles from "../../shared/styles";
-import { TextField, Button, Typography, Divider } from "@material-ui/core";
+import React, { useState } from 'react';
+import { useMutation } from 'react-apollo-hooks';
+import { getAuthorsQuery, addAuthorMutation } from '../../graphQL/queries';
+import useStyles from '../../shared/styles';
+import { TextField, Button, Typography, Divider } from '@material-ui/core';
 
 const initialState = {
-  name: "",
-  age: ""
+  name: '',
+  age: ''
 };
 
-const AddAuthor = () => {
+export const AddAuthor = () => {
   const [values, setValues] = useState(initialState);
   const addAuthor = useMutation(addAuthorMutation);
 

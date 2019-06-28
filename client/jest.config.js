@@ -1,19 +1,19 @@
 module.exports = {
-  roots: ["<rootDir>/src"],
+  roots: ['<rootDir>/src'],
   transform: {
-    "^.+\\.tsx?$": "ts-jest"
+    '^.+\\.tsx?$': 'ts-jest'
   },
-  preset: "ts-jest",
-  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  preset: 'ts-jest',
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   globals: {
-    "ts-jest": {
+    'ts-jest': {
       tsConfig: {
-        jsx: "react"
+        jsx: 'react'
       }
     }
   },
   // Setup Enzyme
-  snapshotSerializers: ["enzyme-to-json/serializer"],
-  setupFilesAfterEnv: ["./setupEnzyme.tsx"]
+  snapshotSerializers: ['enzyme-to-json/serializer'],
+  setupFilesAfterEnv: ['./setupEnzyme.tsx']
 };
